@@ -44,3 +44,9 @@ $ yarn prisma migrate dev
 ```bash
 $ yarn prisma studio
 ```
+
+5. Generate the modules automatically:
+
+```bash
+$ nest g resource {module-name}
+```
