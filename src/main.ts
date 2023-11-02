@@ -10,6 +10,7 @@ async function bootstrap() {
     that is using class-validators (file inside the dto folder)
   */
   app.useGlobalPipes(new ValidationPipe());
+
   await app.listen(3020);
 }
 bootstrap();
