@@ -9,6 +9,8 @@ import {
   ParseUUIDPipe,
   HttpStatus,
   HttpCode,
+  Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TransactionsService } from './services/transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -19,17 +21,24 @@ import { ActiveUserId } from 'src/shared/decorators/ActiveUserId';
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
+  @Get()
+  findAll(
+    @ActiveUserId() userId: string,
+    @Query('month', ParseIntPipe) month: number,
+    @Query('year', ParseIntPipe) year: number,
+  ) {
+    return this.transactionsService.findAllByUserId(userId, {
+      month,
+      year,
+    });
+  }
+
   @Post()
   create(
     @ActiveUserId() userId: string,
     @Body() createTransactionDto: CreateTransactionDto,
   ) {
     return this.transactionsService.create(userId, createTransactionDto);
-  }
-
-  @Get()
-  findAll(@ActiveUserId() userId: string) {
-    return this.transactionsService.findAllByUserId(userId);
   }
 
   @Put(':transactionId')

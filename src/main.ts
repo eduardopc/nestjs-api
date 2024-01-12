@@ -12,7 +12,9 @@ async function bootstrap() {
     that is using class-validators (file inside the dto folder)
   */
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({ origin: '*' });
 
   await app.listen(3020);
 }
+
 bootstrap();
